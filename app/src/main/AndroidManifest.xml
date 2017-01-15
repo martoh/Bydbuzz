@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".VenueActivity" />
+        <activity android:name=".SeatActivity" />
+        <activity android:name=".AuctionActivity" />
+        <activity android:name=".BidActivity"></activity>
     </application>
 
 </manifest>
