@@ -17,7 +17,7 @@
         android:height="50dp"
         android:hint="Player1" />
 
-    <!--Avatar -->
+    <!--Avatar-->
     <ImageView
         android:id="@+id/img_user_avatar"
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:text="Sign in" />
 
-    <!--Forgot Password-->
+    <!--TODO: Forgot Password-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,8 +60,7 @@
         android:text="Forgot Password?"
         android:textAlignment="center" />
 
-    <!--Sign in with Facebook-->
-
+    <!--TODO: Sign in with Facebook-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,7 +69,7 @@
         android:text="Sign in with Facebook"
         android:textAlignment="center" />
 
-    <!--Registration-->
+    <!--TODO: Registration-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,6 +77,5 @@
         android:height="25dp"
         android:text="New here? Sign Up"
         android:textAlignment="center" />
-
 
 </LinearLayout>
