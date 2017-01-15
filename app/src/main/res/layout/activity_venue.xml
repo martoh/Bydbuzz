@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="akitasoft.bydbuzz.com.bydbuzz.VenueActivity">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:weightSum="1">
 
-</android.support.constraint.ConstraintLayout>
+    <!--Map-->
+    <ImageView
+        android:id="@+id/img_map"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:srcCompat="@drawable/manhattan" />
+
+    <!--Description-->
+    <Button
+        android:id="@+id/btn_venue_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New York vs Raptors"/>
+
+    <!--Current Seat-->
+    <Button
+        android:id="@+id/btn_seat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Section 227, Row 12, Seat 13-14"/>
+
+    <!--Upgrade-->
+    <Button
+        android:id="@+id/btn_upgrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="UPGRADE"/>
+
+
+</LinearLayout>

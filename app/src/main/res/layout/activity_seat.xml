@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="akitasoft.bydbuzz.com.bydbuzz.SeatActivity">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:weightSum="1">
 
-</android.support.constraint.ConstraintLayout>
+    <!--Seating Map-->
+    <ImageView
+        android:id="@+id/img_seating_map"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:srcCompat="@drawable/seating" />
+
+    <!--Seat Description-->
+    <Button
+        android:id="@+id/btn_seat_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Section 117, Row 4"/>
+
+    <!--Time Remaining-->
+    <Button
+        android:id="@+id/btn_time_remaining"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="00:29:38 Remaining"/>
+
+    <!--Bid Now-->
+    <Button
+        android:id="@+id/btn_bid_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bid Now ($5)"/>
+
+</LinearLayout>
