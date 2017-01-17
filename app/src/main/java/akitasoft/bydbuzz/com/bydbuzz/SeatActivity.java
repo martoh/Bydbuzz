@@ -16,7 +16,7 @@ public class SeatActivity extends AppCompatActivity {
         final Button button = (Button) findViewById(R.id.btn_bid_now);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), BidActivity.class);
+                Intent intent = new Intent(getBaseContext(), AuctionActivity.class);
 //                intent.putExtra("sampleText", "thereisnocowlevel");
                 startActivity(intent);
             }
