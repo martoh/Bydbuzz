@@ -28,11 +28,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_auction_description;
         public TextView tv_auction_ticket_count;
+        public TextView tv_auction_cost_per;
 
         public ViewHolder(View v) {
             super(v);
             tv_auction_description = (TextView)v.findViewById(R.id.tv_auctions_item_description);
             tv_auction_ticket_count = (TextView)v.findViewById(R.id.tv_auctions_item_ticket_count);
+            tv_auction_cost_per = (TextView)v.findViewById(R.id.tv_auctions_item_cost_per);
         }
     }
 
@@ -48,6 +50,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Map<String, String> auction = Auctions.get(position);
         holder.tv_auction_description.setText(auction.get("desc"));
         holder.tv_auction_ticket_count.setText(auction.get("ticket_count"));
+        holder.tv_auction_cost_per.setText(auction.get("cost_per"));
     }
 
     @Override

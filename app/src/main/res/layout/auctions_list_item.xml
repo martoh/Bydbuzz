@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60sp"
+    android:layout_height="65sp"
     android:padding="15sp">
 
     <TextView
         android:id="@+id/tv_auctions_item_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="monospace"
         android:textSize="12sp"
         android:layout_gravity="top"/>
+
+    <TextView
+        android:id="@+id/tv_auctions_item_cost_per"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:gravity="center_vertical|right" />
 
     <TextView
         android:id="@+id/tv_auctions_item_ticket_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="monospace"
         android:textSize="12sp"
         android:layout_gravity="bottom"/>
-
 
 </FrameLayout>
