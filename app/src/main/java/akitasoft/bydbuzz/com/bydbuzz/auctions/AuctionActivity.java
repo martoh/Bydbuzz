@@ -1,4 +1,4 @@
-package akitasoft.bydbuzz.com.bydbuzz;
+package akitasoft.bydbuzz.com.bydbuzz.auctions;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import akitasoft.bydbuzz.com.bydbuzz.auctions.CreateAuctions;
-import akitasoft.bydbuzz.com.bydbuzz.auctions.RecyclerViewAdapter;
+import akitasoft.bydbuzz.com.bydbuzz.R;
 
 
 public class AuctionActivity extends AppCompatActivity {

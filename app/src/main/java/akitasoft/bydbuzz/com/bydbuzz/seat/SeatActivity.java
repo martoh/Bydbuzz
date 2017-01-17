@@ -1,22 +1,25 @@
-package akitasoft.bydbuzz.com.bydbuzz;
+package akitasoft.bydbuzz.com.bydbuzz.seat;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class VenueActivity extends AppCompatActivity {
+import akitasoft.bydbuzz.com.bydbuzz.R;
+import akitasoft.bydbuzz.com.bydbuzz.auctions.AuctionActivity;
+
+public class SeatActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_venue);
+        setContentView(R.layout.activity_seat);
 
-        final Button button = (Button) findViewById(R.id.btn_upgrade);
+        final Button button = (Button) findViewById(R.id.btn_bid_now);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), SeatActivity.class);
+                Intent intent = new Intent(getBaseContext(), AuctionActivity.class);
 //                intent.putExtra("sampleText", "thereisnocowlevel");
                 startActivity(intent);
             }
