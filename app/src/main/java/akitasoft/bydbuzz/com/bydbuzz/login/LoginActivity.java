@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import akitasoft.bydbuzz.com.bydbuzz.R;
-import akitasoft.bydbuzz.com.bydbuzz.VenueActivity;
+import akitasoft.bydbuzz.com.bydbuzz.venue.VenueActivity;
 
 public class LoginActivity extends AppCompatActivity {
 

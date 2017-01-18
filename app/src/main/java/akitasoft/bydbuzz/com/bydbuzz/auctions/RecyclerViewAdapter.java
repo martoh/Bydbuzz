@@ -1,28 +1,27 @@
 package akitasoft.bydbuzz.com.bydbuzz.auctions;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-import java.util.Map;
-
 import akitasoft.bydbuzz.com.bydbuzz.R;
+import akitasoft.bydbuzz.com.bydbuzz.data.AuctionContract;
 
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
-    List<Map<String, String>> Auctions;
-    Context context;
-    View view1;
+    Context mContext;
+    View mView;
     RecyclerView.ViewHolder viewHolder1;
+    private Cursor mCursor;
 
-    public RecyclerViewAdapter(Context context1, List<Map<String, String>> auction_list) {
-        Auctions = auction_list;
-        context = context1;
+    public RecyclerViewAdapter(Context context, Cursor cursor) {
+        this.mContext = context;
+        this.mCursor = cursor;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -40,21 +39,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view1 = LayoutInflater.from(context).inflate(R.layout.auctions_list_item, parent, false);
-        viewHolder1 = new ViewHolder(view1);
+        mView = LayoutInflater.from(mContext).inflate(R.layout.auctions_list_item, parent, false);
+        viewHolder1 = new ViewHolder(mView);
         return (ViewHolder) viewHolder1;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Map<String, String> auction = Auctions.get(position);
-        holder.tv_auction_description.setText(auction.get("desc"));
-        holder.tv_auction_ticket_count.setText(auction.get("ticket_count"));
-        holder.tv_auction_cost_per.setText(auction.get("cost_per"));
+        if (!mCursor.moveToPosition(position))
+            return;
+
+        String desc = mCursor.getString(mCursor.getColumnIndex(AuctionContract.AuctionEntry.COLUMN_DESCRIPTION));
+        String ticket_count = mCursor.getString(mCursor.getColumnIndex(AuctionContract.AuctionEntry.COLUMN_TICKET_COUNT));
+        String cost_per = mCursor.getString(mCursor.getColumnIndex(AuctionContract.AuctionEntry.COLUMN_ITEM_PER_COST));
+
+        holder.tv_auction_description.setText(desc);
+        holder.tv_auction_ticket_count.setText(ticket_count);
+        holder.tv_auction_cost_per.setText(cost_per);
     }
 
     @Override
     public int getItemCount() {
-        return Auctions.size();
+        return mCursor.getCount();
     }
 }
