@@ -3,7 +3,7 @@ package akitasoft.bydbuzz.com.bydbuzz.auctions;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
-import akitasoft.bydbuzz.com.bydbuzz.data.AuctionContract;
+import akitasoft.bydbuzz.com.bydbuzz.data.contracts.AuctionContract;
 
 /**
  * Created by marty on 1/16/2017.
@@ -19,9 +19,9 @@ public class CreateAuctions {
 
     private long addAuction(String desc, String ticket_count, String cost_per) {
         ContentValues cv = new ContentValues();
-        cv.put(AuctionContract.AuctionEntry.COLUMN_DESCRIPTION, desc);
-        cv.put(AuctionContract.AuctionEntry.COLUMN_TICKET_COUNT, ticket_count);
-        cv.put(AuctionContract.AuctionEntry.COLUMN_ITEM_PER_COST, cost_per);
+//        cv.put(AuctionContract.AuctionEntry.COLUMN_DESCRIPTION, desc);
+//        cv.put(AuctionContract.AuctionEntry.COLUMN_TICKET_COUNT, ticket_count);
+//        cv.put(AuctionContract.AuctionEntry.COLUMN_ITEM_PER_COST, cost_per);
 
         return mDb.insert(AuctionContract.AuctionEntry.TABLE_NAME, null, cv);
     }

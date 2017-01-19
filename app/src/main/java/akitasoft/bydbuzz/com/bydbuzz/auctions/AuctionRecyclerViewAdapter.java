@@ -9,17 +9,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import akitasoft.bydbuzz.com.bydbuzz.R;
-import akitasoft.bydbuzz.com.bydbuzz.data.AuctionContract;
+import akitasoft.bydbuzz.com.bydbuzz.data.contracts.AuctionContract;
 
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
+public class AuctionRecyclerViewAdapter extends RecyclerView.Adapter<AuctionRecyclerViewAdapter.ViewHolder>{
 
     Context mContext;
     View mView;
     RecyclerView.ViewHolder viewHolder1;
     private Cursor mCursor;
 
-    public RecyclerViewAdapter(Context context, Cursor cursor) {
+    public AuctionRecyclerViewAdapter(Context context, Cursor cursor) {
         this.mContext = context;
         this.mCursor = cursor;
     }
@@ -49,9 +49,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         if (!mCursor.moveToPosition(position))
             return;
 
-        String desc = mCursor.getString(mCursor.getColumnIndex(AuctionContract.AuctionEntry.COLUMN_DESCRIPTION));
-        String ticket_count = mCursor.getString(mCursor.getColumnIndex(AuctionContract.AuctionEntry.COLUMN_TICKET_COUNT));
-        String cost_per = mCursor.getString(mCursor.getColumnIndex(AuctionContract.AuctionEntry.COLUMN_ITEM_PER_COST));
+        /* Fetch the data from the entry, populate the view */
+        // TODO: Get correct data next time...
+        Integer desc = mCursor.getInt(mCursor.getColumnIndex(AuctionContract.AuctionEntry.COLUMN_EVENT_ID));
+        String ticket_count = mCursor.getString(mCursor.getColumnIndex(AuctionContract.AuctionEntry.COLUMN_SEAT_ID));
+        String cost_per = mCursor.getString(mCursor.getColumnIndex(AuctionContract.AuctionEntry.COLUMN_EXPIRE));
 
         holder.tv_auction_description.setText(desc);
         holder.tv_auction_ticket_count.setText(ticket_count);
