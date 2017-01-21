@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import akitasoft.bydbuzz.com.bydbuzz.R;
+import akitasoft.bydbuzz.com.bydbuzz.async.AsyncBidder;
 import akitasoft.bydbuzz.com.bydbuzz.auctions.AuctionActivity;
 import akitasoft.bydbuzz.com.bydbuzz.data.DbHelper;
 
@@ -32,5 +34,13 @@ public class SeatActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        AsyncBidder asyncBidder = new AsyncBidder(this);
+        asyncBidder.execute();
+
+        final EditText et_bid_history = (EditText) findViewById(R.id.et_bid_history);
+        et_bid_history.append("thereisnocowlevel\n");
+        et_bid_history.append("thereisnocowlevel");
+
     }
 }

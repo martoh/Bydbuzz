@@ -15,10 +15,17 @@ public class AuctionLoad {
 
     public AuctionLoad(SQLiteDatabase sql) {
         this.sql = sql;
+        load();
     }
 
     public void load() {
         // TODO: INSERT into table
+        insert(1,1,"expire one");
+//        insert(1,2,"expire two");
+//        insert(1,3,"expire three");
+//        insert(2,1,"expire one");
+//        insert(2,2,"expire two");
+//        insert(2,3,"expire three");
     }
 
     public long insert(Integer event_id, Integer seat_id, String expire) {

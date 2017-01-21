@@ -55,9 +55,9 @@ public class AuctionRecyclerViewAdapter extends RecyclerView.Adapter<AuctionRecy
         String ticket_count = mCursor.getString(mCursor.getColumnIndex(AuctionContract.AuctionEntry.COLUMN_SEAT_ID));
         String cost_per = mCursor.getString(mCursor.getColumnIndex(AuctionContract.AuctionEntry.COLUMN_EXPIRE));
 
-        holder.tv_auction_description.setText(desc);
-        holder.tv_auction_ticket_count.setText(ticket_count);
-        holder.tv_auction_cost_per.setText(cost_per);
+        holder.tv_auction_description.setText(desc.toString());
+        holder.tv_auction_ticket_count.setText(ticket_count.toString());
+        holder.tv_auction_cost_per.setText(cost_per.toString());
     }
 
     @Override

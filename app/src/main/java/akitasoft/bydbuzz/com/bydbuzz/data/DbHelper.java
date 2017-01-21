@@ -30,7 +30,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static SQLiteDatabase sql;
 
     private static final String DATABASE_NAME = "bydbuzz.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
 
     private AuctionLoad auctionLoad;
     private BidLoad bidLoad;
