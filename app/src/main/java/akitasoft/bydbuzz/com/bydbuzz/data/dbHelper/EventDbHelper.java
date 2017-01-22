@@ -1,4 +1,4 @@
-package akitasoft.bydbuzz.com.bydbuzz.data.dbLoad;
+package akitasoft.bydbuzz.com.bydbuzz.data.dbHelper;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,18 +9,32 @@ import akitasoft.bydbuzz.com.bydbuzz.data.contracts.EventContract;
  * Created by marty on 1/18/2017.
  */
 
-public class EventLoad {
+public class EventDbHelper {
 
     private SQLiteDatabase sql;
 
-    public EventLoad(SQLiteDatabase sql) {
+    public EventDbHelper(SQLiteDatabase sql) {
         this.sql = sql;
-        truncate();
-        load();
+    }
+
+    public void create() {
+        final String SQL_CREATE_EVENT_TABLE = "CREATE TABLE " +
+                EventContract.EventEntry.TABLE_NAME + " (" +
+                EventContract.EventEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                EventContract.EventEntry.COLUMN_DATE + " TEXT, " +
+                EventContract.EventEntry.COLUMN_VENUE_ID + " INTEGER, " +
+                EventContract.EventEntry.COLUMN_NAME + " TEXT, " +
+                EventContract.EventEntry.COLUMN_DESCRIPTION + " TEXT " +
+                ");";
+        sql.execSQL(SQL_CREATE_EVENT_TABLE);
     }
 
     public void truncate() {
         sql.execSQL("DELETE FROM " + EventContract.EventEntry.TABLE_NAME);
+    }
+
+    public void drop() {
+        sql.execSQL("DROP TABLE IF EXISTS " + EventContract.EventEntry.TABLE_NAME);
     }
 
     public void load() {

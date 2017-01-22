@@ -1,4 +1,4 @@
-package akitasoft.bydbuzz.com.bydbuzz.data.dbLoad;
+package akitasoft.bydbuzz.com.bydbuzz.data.dbHelper;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,18 +9,33 @@ import akitasoft.bydbuzz.com.bydbuzz.data.contracts.SeatContract;
  * Created by marty on 1/18/2017.
  */
 
-public class SeatLoad {
+public class SeatDbHelper {
 
     private SQLiteDatabase sql;
 
-    public SeatLoad(SQLiteDatabase sql) {
+    public SeatDbHelper(SQLiteDatabase sql) {
         this.sql = sql;
-        truncate();
-        load();
+    }
+
+    public void create() {
+        final String SQL_CREATE_SEAT_TABLE = "CREATE TABLE " +
+                SeatContract.SeatEntry.TABLE_NAME + " (" +
+                SeatContract.SeatEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                SeatContract.SeatEntry.COLUMN_VENUE_ID + " INTEGER, " +
+                SeatContract.SeatEntry.COLUMN_SECTION + " TEXT, " +
+                SeatContract.SeatEntry.COLUMN_ROW + " TEXT, " +
+                SeatContract.SeatEntry.COLUMN_NUMBER + " TEXT, " +
+                SeatContract.SeatEntry.COLUMN_PRICE + " TEXT " +
+                ");";
+        sql.execSQL(SQL_CREATE_SEAT_TABLE);
     }
 
     public void truncate() {
         sql.execSQL("DELETE FROM " + SeatContract.SeatEntry.TABLE_NAME);
+    }
+
+    public void drop() {
+        sql.execSQL("DROP TABLE IF EXISTS " + SeatContract.SeatEntry.TABLE_NAME);
     }
 
     public void load() {

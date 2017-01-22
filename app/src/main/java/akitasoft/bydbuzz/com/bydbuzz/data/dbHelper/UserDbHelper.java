@@ -1,4 +1,4 @@
-package akitasoft.bydbuzz.com.bydbuzz.data.dbLoad;
+package akitasoft.bydbuzz.com.bydbuzz.data.dbHelper;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,18 +9,32 @@ import akitasoft.bydbuzz.com.bydbuzz.data.contracts.UserContract;
  * Created by marty on 1/18/2017.
  */
 
-public class UserLoad {
+public class UserDbHelper {
 
     private SQLiteDatabase sql;
 
-    public UserLoad(SQLiteDatabase sql) {
+    public UserDbHelper(SQLiteDatabase sql) {
         this.sql = sql;
-        truncate();
-        load();
+    }
+
+    public void create() {
+        final String SQL_CREATE_USER_TABLE = "CREATE TABLE " +
+                UserContract.UserEntry.TABLE_NAME + " (" +
+                UserContract.UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                UserContract.UserEntry.COLUMN_NAME + " TEXT, " +
+                UserContract.UserEntry.COLUMN_EMAIL + " TEXT, " +
+                UserContract.UserEntry.COLUMN_DATE_JOINED + " TEXT, " +
+                UserContract.UserEntry.COLUMN_PASSWORD + " TEXT " +
+                ");";
+        sql.execSQL(SQL_CREATE_USER_TABLE);
     }
 
     public void truncate() {
         sql.execSQL("DELETE FROM " + UserContract.UserEntry.TABLE_NAME);
+    }
+
+    public void drop() {
+        sql.execSQL("DROP TABLE IF EXISTS " + UserContract.UserEntry.TABLE_NAME);
     }
 
     public void load() {

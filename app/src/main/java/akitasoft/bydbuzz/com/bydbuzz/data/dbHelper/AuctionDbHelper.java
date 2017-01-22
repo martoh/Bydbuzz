@@ -1,4 +1,4 @@
-package akitasoft.bydbuzz.com.bydbuzz.data.dbLoad;
+package akitasoft.bydbuzz.com.bydbuzz.data.dbHelper;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,18 +9,31 @@ import akitasoft.bydbuzz.com.bydbuzz.data.contracts.AuctionContract;
  * Created by marty on 1/18/2017.
  */
 
-public class AuctionLoad {
+public class AuctionDbHelper {
 
     private SQLiteDatabase sql;
 
-    public AuctionLoad(SQLiteDatabase sql) {
+    public AuctionDbHelper(SQLiteDatabase sql) {
         this.sql = sql;
-        truncate();
-        load();
+    }
+
+    public void create() {
+        final String SQL_CREATE_AUCTION_TABLE = "CREATE TABLE " +
+                AuctionContract.AuctionEntry.TABLE_NAME + " (" +
+                AuctionContract.AuctionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                AuctionContract.AuctionEntry.COLUMN_EVENT_ID + " INTEGER, " +
+                AuctionContract.AuctionEntry.COLUMN_SEAT_ID + " INTEGER, " +
+                AuctionContract.AuctionEntry.COLUMN_EXPIRE + " TEXT " +
+                ");";
+        sql.execSQL(SQL_CREATE_AUCTION_TABLE);
     }
 
     public void truncate() {
         sql.execSQL("DELETE FROM " + AuctionContract.AuctionEntry.TABLE_NAME);
+    }
+
+    public void drop() {
+        sql.execSQL("DROP TABLE IF EXISTS " + AuctionContract.AuctionEntry.TABLE_NAME);
     }
 
     public void load() {

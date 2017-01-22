@@ -9,12 +9,14 @@ import android.widget.Button;
 
 import akitasoft.bydbuzz.com.bydbuzz.R;
 import akitasoft.bydbuzz.com.bydbuzz.data.DbHelper;
+import akitasoft.bydbuzz.com.bydbuzz.data.dbHelper.BidDbHelper;
 import akitasoft.bydbuzz.com.bydbuzz.venue.VenueActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static DbHelper dbHelper;
-    public static SQLiteDatabase sql;
+    private static DbHelper dbHelper;
+    private static SQLiteDatabase sql;
+    private BidDbHelper bidDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
 
         dbHelper = DbHelper.getsInstance(this);
         sql = DbHelper.sql;
+        bidDbHelper = new BidDbHelper(sql);
+        bidDbHelper.truncate();
 
         final Button button = (Button) findViewById(R.id.btn_sign_in);
         button.setOnClickListener(new View.OnClickListener() {
@@ -32,6 +36,5 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }

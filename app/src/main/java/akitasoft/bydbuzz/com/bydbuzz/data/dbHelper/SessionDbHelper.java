@@ -1,4 +1,4 @@
-package akitasoft.bydbuzz.com.bydbuzz.data.dbLoad;
+package akitasoft.bydbuzz.com.bydbuzz.data.dbHelper;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,18 +9,30 @@ import akitasoft.bydbuzz.com.bydbuzz.data.contracts.SessionContract;
  * Created by marty on 1/18/2017.
  */
 
-public class SessionLoad {
+public class SessionDbHelper {
 
     private SQLiteDatabase sql;
 
-    public SessionLoad(SQLiteDatabase sql) {
+    public SessionDbHelper(SQLiteDatabase sql) {
         this.sql = sql;
-        truncate();
-        load();
+    }
+
+    public void create() {
+        final String SQL_CREATE_SESSION_TABLE = "CREATE TABLE " +
+                SessionContract.SessionEntry.TABLE_NAME + " (" +
+                SessionContract.SessionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                SessionContract.SessionEntry.COLUMN_TOKEN + " TEXT, " +
+                SessionContract.SessionEntry.COLUMN_EXPIRE + " TEXT " +
+                ");";
+        sql.execSQL(SQL_CREATE_SESSION_TABLE);
     }
 
     public void truncate() {
         sql.execSQL("DELETE FROM " + SessionContract.SessionEntry.TABLE_NAME);
+    }
+
+    public void drop() {
+        sql.execSQL("DROP TABLE IF EXISTS " + SessionContract.SessionEntry.TABLE_NAME);
     }
 
     public void load() {

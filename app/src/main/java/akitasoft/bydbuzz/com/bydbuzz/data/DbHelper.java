@@ -5,20 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import akitasoft.bydbuzz.com.bydbuzz.data.contracts.AuctionContract;
-import akitasoft.bydbuzz.com.bydbuzz.data.contracts.BidContract;
-import akitasoft.bydbuzz.com.bydbuzz.data.contracts.EventContract;
-import akitasoft.bydbuzz.com.bydbuzz.data.contracts.SeatContract;
-import akitasoft.bydbuzz.com.bydbuzz.data.contracts.SessionContract;
-import akitasoft.bydbuzz.com.bydbuzz.data.contracts.UserContract;
-import akitasoft.bydbuzz.com.bydbuzz.data.contracts.VenueContract;
-import akitasoft.bydbuzz.com.bydbuzz.data.dbLoad.AuctionLoad;
-import akitasoft.bydbuzz.com.bydbuzz.data.dbLoad.BidLoad;
-import akitasoft.bydbuzz.com.bydbuzz.data.dbLoad.EventLoad;
-import akitasoft.bydbuzz.com.bydbuzz.data.dbLoad.SeatLoad;
-import akitasoft.bydbuzz.com.bydbuzz.data.dbLoad.SessionLoad;
-import akitasoft.bydbuzz.com.bydbuzz.data.dbLoad.UserLoad;
-import akitasoft.bydbuzz.com.bydbuzz.data.dbLoad.VenueLoad;
+import akitasoft.bydbuzz.com.bydbuzz.data.dbHelper.AuctionDbHelper;
+import akitasoft.bydbuzz.com.bydbuzz.data.dbHelper.BidDbHelper;
+import akitasoft.bydbuzz.com.bydbuzz.data.dbHelper.EventDbHelper;
+import akitasoft.bydbuzz.com.bydbuzz.data.dbHelper.SeatDbHelper;
+import akitasoft.bydbuzz.com.bydbuzz.data.dbHelper.SessionDbHelper;
+import akitasoft.bydbuzz.com.bydbuzz.data.dbHelper.UserDbHelper;
+import akitasoft.bydbuzz.com.bydbuzz.data.dbHelper.VenueDbHelper;
 
 /**
  * Created by marty on 1/17/2017.
@@ -30,15 +23,15 @@ public class DbHelper extends SQLiteOpenHelper {
     public static SQLiteDatabase sql;
 
     private static final String DATABASE_NAME = "bydbuzz.db";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 11;
 
-    private AuctionLoad auctionLoad;
-    private BidLoad bidLoad;
-    private EventLoad eventLoad;
-    private SeatLoad seatLoad;
-    private SessionLoad sessionLoad;
-    private UserLoad userLoad;
-    private VenueLoad venueLoad;
+    private AuctionDbHelper auctionDbHelper;
+    private BidDbHelper bidDbHelper;
+    private EventDbHelper eventDbHelper;
+    private SeatDbHelper seatDbHelper;
+    private SessionDbHelper sessionDbHelper;
+    private UserDbHelper userDbHelper;
+    private VenueDbHelper venueDbHelper;
 
     public static synchronized DbHelper getsInstance(Context context) {
         if (sInstance == null) {
@@ -58,118 +51,79 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        Log.i("DbHelper:onCreate", "Creating tables");
+        /* INSTANTIATE ALL DB HELPERS*/
+        Log.i("DbHelper:onCreate", "Initializing tables");
+        auctionDbHelper = new AuctionDbHelper(sqLiteDatabase);
+        bidDbHelper = new BidDbHelper(sqLiteDatabase);
+        eventDbHelper = new EventDbHelper(sqLiteDatabase);
+        sessionDbHelper = new SessionDbHelper(sqLiteDatabase);
+        seatDbHelper = new SeatDbHelper(sqLiteDatabase);
+        userDbHelper = new UserDbHelper(sqLiteDatabase);
+        venueDbHelper = new VenueDbHelper(sqLiteDatabase);
 
-        /* AUCTIONS */
-        final String SQL_CREATE_AUCTION_TABLE = "CREATE TABLE " +
-                AuctionContract.AuctionEntry.TABLE_NAME + " (" +
-                AuctionContract.AuctionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                AuctionContract.AuctionEntry.COLUMN_EVENT_ID + " INTEGER, " +
-                AuctionContract.AuctionEntry.COLUMN_SEAT_ID + " INTEGER, " +
-                AuctionContract.AuctionEntry.COLUMN_EXPIRE + " TEXT " +
-                ");";
-        sqLiteDatabase.execSQL(SQL_CREATE_AUCTION_TABLE);
+        /* CREATE TABLES */
+        Log.i("DbHelper:onCreate", "Create all tables");
+        auctionDbHelper.create();
+        bidDbHelper.create();
+        eventDbHelper.create();
+        sessionDbHelper.create();
+        seatDbHelper.create();
+        userDbHelper.create();
+        venueDbHelper.create();
 
-        /* BIDS */
-        final String SQL_CREATE_BID_TABLE = "CREATE TABLE " +
-                BidContract.BidEntry.TABLE_NAME + " (" +
-                BidContract.BidEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                BidContract.BidEntry.COLUMN_AUCTION_ID + " INTEGER, " +
-                BidContract.BidEntry.COLUMN_USER_ID + " INTEGER, " +
-                BidContract.BidEntry.COLUMN_TYPE + " TEXT, " +
-                BidContract.BidEntry.COLUMN_AMOUNT + " TEXT, " +
-                BidContract.BidEntry.COLUMN_TIMESTAMP + " TEXT " +
-                ");";
-        sqLiteDatabase.execSQL(SQL_CREATE_BID_TABLE);
-
-        /* EVENTS */
-        final String SQL_CREATE_EVENT_TABLE = "CREATE TABLE " +
-                EventContract.EventEntry.TABLE_NAME + " (" +
-                EventContract.EventEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                EventContract.EventEntry.COLUMN_DATE + " TEXT, " +
-                EventContract.EventEntry.COLUMN_VENUE_ID + " INTEGER, " +
-                EventContract.EventEntry.COLUMN_NAME + " TEXT, " +
-                EventContract.EventEntry.COLUMN_DESCRIPTION + " TEXT " +
-                ");";
-        sqLiteDatabase.execSQL(SQL_CREATE_EVENT_TABLE);
-
-        /* SEATS */
-        final String SQL_CREATE_SEAT_TABLE = "CREATE TABLE " +
-                SeatContract.SeatEntry.TABLE_NAME + " (" +
-                SeatContract.SeatEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                SeatContract.SeatEntry.COLUMN_VENUE_ID + " INTEGER, " +
-                SeatContract.SeatEntry.COLUMN_SECTION + " TEXT, " +
-                SeatContract.SeatEntry.COLUMN_ROW + " TEXT, " +
-                SeatContract.SeatEntry.COLUMN_NUMBER + " TEXT, " +
-                SeatContract.SeatEntry.COLUMN_PRICE + " TEXT " +
-                ");";
-        sqLiteDatabase.execSQL(SQL_CREATE_SEAT_TABLE);
-
-        /* SESSIONS */
-        final String SQL_CREATE_SESSION_TABLE = "CREATE TABLE " +
-                SessionContract.SessionEntry.TABLE_NAME + " (" +
-                SessionContract.SessionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                SessionContract.SessionEntry.COLUMN_TOKEN + " TEXT, " +
-                SessionContract.SessionEntry.COLUMN_EXPIRE + " TEXT " +
-                ");";
-        sqLiteDatabase.execSQL(SQL_CREATE_SESSION_TABLE);
-
-        /* USERS */
-        final String SQL_CREATE_USER_TABLE = "CREATE TABLE " +
-                UserContract.UserEntry.TABLE_NAME + " (" +
-                UserContract.UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                UserContract.UserEntry.COLUMN_NAME + " TEXT, " +
-                UserContract.UserEntry.COLUMN_EMAIL + " TEXT, " +
-                UserContract.UserEntry.COLUMN_DATE_JOINED + " TEXT, " +
-                UserContract.UserEntry.COLUMN_PASSWORD + " TEXT " +
-                ");";
-        sqLiteDatabase.execSQL(SQL_CREATE_USER_TABLE);
-
-        /* VENUE */
-        final String SQL_CREATE_VENUE_TABLE = "CREATE TABLE " +
-                VenueContract.VenueEntry.TABLE_NAME + " (" +
-                VenueContract.VenueEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                VenueContract.VenueEntry.COLUMN_NAME + " TEXT, " +
-                VenueContract.VenueEntry.COLUMN_GEOLOCATION + " TEXT, " +
-                VenueContract.VenueEntry.COLUMN_ADDRESS + " TEXT " +
-                ");";
-        sqLiteDatabase.execSQL(SQL_CREATE_VENUE_TABLE);
-
-        /* LOAD ALL TABLES */
-        Log.i("DbHelper:onCreate", "Filling Tables");
-        auctionLoad = new AuctionLoad(sqLiteDatabase);
-        bidLoad = new BidLoad(sqLiteDatabase);
-        eventLoad = new EventLoad(sqLiteDatabase);
-        sessionLoad = new SessionLoad(sqLiteDatabase);
-        seatLoad = new SeatLoad(sqLiteDatabase);
-        userLoad = new UserLoad(sqLiteDatabase);
-        venueLoad = new VenueLoad(sqLiteDatabase);
+        /* LOAD DATA INTO TABLES */
+        Log.i("DbHelper:onCreate", "Load all tables");
+        auctionDbHelper.load();
+        bidDbHelper.load();
+        eventDbHelper.load();
+        sessionDbHelper.load();
+        seatDbHelper.load();
+        userDbHelper.load();
+        venueDbHelper.load();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+
+        /* INSTANTIATE ALL DB HELPERS*/
+        Log.i("DbHelper:onUpgrade", "Initializing tables");
+        auctionDbHelper = new AuctionDbHelper(sqLiteDatabase);
+        bidDbHelper = new BidDbHelper(sqLiteDatabase);
+        eventDbHelper = new EventDbHelper(sqLiteDatabase);
+        sessionDbHelper = new SessionDbHelper(sqLiteDatabase);
+        seatDbHelper = new SeatDbHelper(sqLiteDatabase);
+        userDbHelper = new UserDbHelper(sqLiteDatabase);
+        venueDbHelper = new VenueDbHelper(sqLiteDatabase);
+
         /* Drop all of the tables */
         Log.i("DbHelper:onUpgrade", "Droping tables");
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + AuctionContract.AuctionEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + BidContract.BidEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + EventContract.EventEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SeatContract.SeatEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SessionContract.SessionEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + UserContract.UserEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + VenueContract.VenueEntry.TABLE_NAME);
+        auctionDbHelper.drop();
+        bidDbHelper.drop();
+        eventDbHelper.drop();
+        sessionDbHelper.drop();
+        seatDbHelper.drop();
+        userDbHelper.drop();
+        venueDbHelper.drop();
 
         /* Create all of the tables */
-        onCreate(sqLiteDatabase);
+        Log.i("DbHelper:onUpgrade", "Creating all tables");
+        auctionDbHelper.create();
+        bidDbHelper.create();
+        eventDbHelper.create();
+        sessionDbHelper.create();
+        seatDbHelper.create();
+        userDbHelper.create();
+        venueDbHelper.create();
 
         /* Re-load all the data */
-        Log.i("DbHelper:onCreate", "Re-loading data into tables");
-        auctionLoad = new AuctionLoad(sqLiteDatabase);
-        bidLoad = new BidLoad(sqLiteDatabase);
-        eventLoad = new EventLoad(sqLiteDatabase);
-        sessionLoad = new SessionLoad(sqLiteDatabase);
-        seatLoad = new SeatLoad(sqLiteDatabase);
-        userLoad = new UserLoad(sqLiteDatabase);
-        venueLoad = new VenueLoad(sqLiteDatabase);
+        Log.i("DbHelper:onUpgrade", "Re-loading data into tables");
+        auctionDbHelper.load();
+        bidDbHelper.load();
+        eventDbHelper.load();
+        sessionDbHelper.load();
+        seatDbHelper.load();
+        userDbHelper.load();
+        venueDbHelper.load();
     }
 }
