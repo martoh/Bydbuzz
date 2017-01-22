@@ -23,7 +23,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static SQLiteDatabase sql;
 
     private static final String DATABASE_NAME = "bydbuzz.db";
-    private static final int DATABASE_VERSION = 11;
+    private static final int DATABASE_VERSION = 14;
 
     private AuctionDbHelper auctionDbHelper;
     private BidDbHelper bidDbHelper;
@@ -84,7 +84,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
 
         /* INSTANTIATE ALL DB HELPERS*/
         Log.i("DbHelper:onUpgrade", "Initializing tables");

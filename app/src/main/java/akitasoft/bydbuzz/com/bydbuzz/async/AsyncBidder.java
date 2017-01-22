@@ -1,6 +1,7 @@
 package akitasoft.bydbuzz.com.bydbuzz.async;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 
@@ -25,17 +26,29 @@ public class AsyncBidder extends AsyncTask<URL, Integer, Long> {
         mContext = context;
     }
 
-    private void makeABid() {
-
-        Integer auction_id = 1;
-        Integer user_id = 1; // 1-7
-        String type = "lotto";
-        String timestamp = "2017-01-01";
-
+    private void makeABid(Intent amount) {
         Random r = new Random();
-        Integer amount = r.nextInt(500 - 50) + 50;
+//        Integer amount = r.nextInt(500 - 50) + 50;
+        Integer user_id = r.nextInt(7);
+        Integer auction_id = 1;
+        String type = "lotto";
 
-        bidDbHelper.insert(auction_id, user_id, type, amount.toString(), timestamp);
+        bidDbHelper.insert(auction_id, user_id, type, amount.toString());
+    }
+
+    /* BETA FUNCTION: This method of bidding assumes there are NO race conditions to placing bids */
+    private void anteUp() {
+        /* Find highest bid currently in database */
+        Integer highestBid = bidDbHelper.fetchHighestBid();
+
+        /* Insert a bid higher */
+        Random r = new Random();
+        highestBid += r.nextInt(15 - 1) + 1;
+        Integer user_id = r.nextInt(7);
+        Integer auction_id = 1;
+        String type = "lotto";
+
+        bidDbHelper.insert(auction_id, user_id, type, highestBid.toString());
     }
 
     protected Long doInBackground(URL... urls) {
@@ -47,7 +60,7 @@ public class AsyncBidder extends AsyncTask<URL, Integer, Long> {
         for(int i=0; i<1000; i++) {
             try {
                 TimeUnit.SECONDS.sleep(5);
-                makeABid();
+                anteUp();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -39,12 +39,13 @@ public class UserDbHelper {
 
     public void load() {
         insert("Marty", "marty.lyn@gmail.com", "2017-01-01", "pass");
-        insert("Mike", "xmichael.chanx@gmail.com", "2017-01-01", "pass");
+        insert("Molly", "molly.molly@gmail.com", "2017-01-01", "pass");
         insert("Player1", "", "2017-01-01", "pass");
         insert("Player2", "", "2017-01-01", "pass");
         insert("Player3", "", "2017-01-01", "pass");
         insert("Player4", "", "2017-01-01", "pass");
         insert("Player5", "", "2017-01-01", "pass");
+        insert("MIKE", "", "2017-01-01", "pass");
     }
 
     public long insert(String name, String email, String date_joined, String password) {
