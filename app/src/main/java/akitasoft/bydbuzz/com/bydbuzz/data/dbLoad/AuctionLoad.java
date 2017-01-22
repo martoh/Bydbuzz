@@ -15,7 +15,12 @@ public class AuctionLoad {
 
     public AuctionLoad(SQLiteDatabase sql) {
         this.sql = sql;
+        truncate();
         load();
+    }
+
+    public void truncate() {
+        sql.execSQL("DELETE FROM " + AuctionContract.AuctionEntry.TABLE_NAME);
     }
 
     public void load() {

@@ -15,6 +15,12 @@ public class SessionLoad {
 
     public SessionLoad(SQLiteDatabase sql) {
         this.sql = sql;
+        truncate();
+        load();
+    }
+
+    public void truncate() {
+        sql.execSQL("DELETE FROM " + SessionContract.SessionEntry.TABLE_NAME);
     }
 
     public void load() {

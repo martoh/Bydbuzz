@@ -15,10 +15,22 @@ public class UserLoad {
 
     public UserLoad(SQLiteDatabase sql) {
         this.sql = sql;
+        truncate();
+        load();
+    }
+
+    public void truncate() {
+        sql.execSQL("DELETE FROM " + UserContract.UserEntry.TABLE_NAME);
     }
 
     public void load() {
-        // TODO: INSERT into table
+        insert("Marty", "marty.lyn@gmail.com", "2017-01-01", "pass");
+        insert("Mike", "xmichael.chanx@gmail.com", "2017-01-01", "pass");
+        insert("Player1", "", "2017-01-01", "pass");
+        insert("Player2", "", "2017-01-01", "pass");
+        insert("Player3", "", "2017-01-01", "pass");
+        insert("Player4", "", "2017-01-01", "pass");
+        insert("Player5", "", "2017-01-01", "pass");
     }
 
     public long insert(String name, String email, String date_joined, String password) {

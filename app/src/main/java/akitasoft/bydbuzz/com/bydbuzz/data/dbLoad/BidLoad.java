@@ -15,6 +15,12 @@ public class BidLoad {
 
     public BidLoad(SQLiteDatabase sql) {
         this.sql = sql;
+        truncate();
+        load();
+    }
+
+    public void truncate() {
+        sql.execSQL("DELETE FROM " + BidContract.BidEntry.TABLE_NAME);
     }
 
     public void load() {

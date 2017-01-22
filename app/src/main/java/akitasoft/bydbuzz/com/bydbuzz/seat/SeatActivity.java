@@ -51,6 +51,7 @@ public class SeatActivity extends AppCompatActivity {
         });
 
         final EditText et_bid_history = (EditText) findViewById(R.id.et_bid_history);
+        et_bid_history.setKeyListener(null);
         et_bid_history.append("thereisnocowlevel\n");
         et_bid_history.append("thereisnocowlevel");
 

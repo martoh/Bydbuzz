@@ -40,7 +40,8 @@
         android:id="@+id/et_bid_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:ems="10"
+        android:ems="6"
+        android:textSize="10sp"
         android:inputType="textMultiLine" />
 
 </LinearLayout>

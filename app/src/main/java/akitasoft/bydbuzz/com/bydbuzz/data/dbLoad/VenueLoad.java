@@ -15,10 +15,17 @@ public class VenueLoad {
 
     public VenueLoad(SQLiteDatabase sql) {
         this.sql = sql;
+        truncate();
+        load();
+    }
+
+    public void truncate() {
+        sql.execSQL("DELETE FROM " + VenueContract.VenueEntry.TABLE_NAME);
     }
 
     public void load() {
-        // TODO: INSERT into table
+        insert("SkyDome", "", "Toronto's SkyDome");
+        insert("ACC", "", "Air Canada Center");
     }
 
     public long insert(String name, String geolocation, String address) {

@@ -15,10 +15,18 @@ public class EventLoad {
 
     public EventLoad(SQLiteDatabase sql) {
         this.sql = sql;
+        truncate();
+        load();
+    }
+
+    public void truncate() {
+        sql.execSQL("DELETE FROM " + EventContract.EventEntry.TABLE_NAME);
     }
 
     public void load() {
-        // TODO: INSERT into table
+        insert("2017-01-01", 1, "Concert of a musician", "A musician singing to a crowd");
+        insert("2017-01-01", 1, "Baseball game", "Toronto Blue Jays are in town");
+        insert("2017-01-01", 1, "Basketball game", "Toronto Raptors are in town");
     }
 
     public long insert(String date, Integer venue_id, String name, String description) {
