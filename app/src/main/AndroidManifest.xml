@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".venue.VenueActivity" />
         <activity android:name=".seat.SeatActivity" />
-        <activity android:name=".auctions.AuctionActivity"></activity>
+        <activity android:name=".auctionselection.AuctionActivity"/>
+        <activity android:name=".seatselection.SeatSelectionActivity"/>
     </application>
 
 </manifest>

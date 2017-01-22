@@ -1,4 +1,4 @@
-package akitasoft.bydbuzz.com.bydbuzz.auctions;
+package akitasoft.bydbuzz.com.bydbuzz.auctionselection;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,14 +12,14 @@ import akitasoft.bydbuzz.com.bydbuzz.R;
 import akitasoft.bydbuzz.com.bydbuzz.data.contracts.AuctionContract;
 
 
-public class AuctionRecyclerViewAdapter extends RecyclerView.Adapter<AuctionRecyclerViewAdapter.ViewHolder>{
+public class AuctionRVAdapter extends RecyclerView.Adapter<AuctionRVAdapter.ViewHolder>{
 
     Context mContext;
     View mView;
     RecyclerView.ViewHolder viewHolder1;
     private Cursor mCursor;
 
-    public AuctionRecyclerViewAdapter(Context context, Cursor cursor) {
+    public AuctionRVAdapter(Context context, Cursor cursor) {
         this.mContext = context;
         this.mCursor = cursor;
     }
@@ -39,7 +39,7 @@ public class AuctionRecyclerViewAdapter extends RecyclerView.Adapter<AuctionRecy
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        mView = LayoutInflater.from(mContext).inflate(R.layout.auctions_list_item, parent, false);
+        mView = LayoutInflater.from(mContext).inflate(R.layout.auction_list_item, parent, false);
         viewHolder1 = new ViewHolder(mView);
         return (ViewHolder) viewHolder1;
     }

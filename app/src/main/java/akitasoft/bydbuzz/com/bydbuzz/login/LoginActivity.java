@@ -19,10 +19,10 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login_activity);
 
         dbHelper = DbHelper.getsInstance(this);
-        sql = dbHelper.sql;
+        sql = DbHelper.sql;
 
         final Button button = (Button) findViewById(R.id.btn_sign_in);
         button.setOnClickListener(new View.OnClickListener() {

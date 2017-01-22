@@ -1,4 +1,4 @@
-package akitasoft.bydbuzz.com.bydbuzz.auctions;
+package akitasoft.bydbuzz.com.bydbuzz.auctionselection;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -15,39 +15,36 @@ import akitasoft.bydbuzz.com.bydbuzz.data.contracts.AuctionContract;
 
 public class AuctionActivity extends AppCompatActivity {
 
-    public static DbHelper dbHelper;
-    public static SQLiteDatabase sql;
+    private static DbHelper dbHelper;
+    private static SQLiteDatabase sql;
 
     Context context;
-    private RecyclerView auctions_recyclerview;
-    private RecyclerView.Adapter auctions_adapter;
-    private RecyclerView.LayoutManager auctions_layoutmanager;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auction);
+        setContentView(R.layout.auction_list_activity);
         context = getApplicationContext();
 
         dbHelper = DbHelper.getsInstance(this);
         sql = dbHelper.sql;
 
-        /* Insert data */
-//        CreateAuctions createAuctions = new CreateAuctions(sql);
-//        createAuctions.insertAll();
-
         /* Fetch data from DB*/
         Cursor cursor = getAllAuctions();
 
         /* Recycler View */
-        auctions_recyclerview = (RecyclerView) findViewById(R.id.rv_auction_list);
-        auctions_recyclerview.setHasFixedSize(true);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_auction_list);
+        mRecyclerView.setHasFixedSize(true);
 
-        auctions_layoutmanager = new LinearLayoutManager(this);
-        auctions_recyclerview.setLayoutManager(auctions_layoutmanager);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
-        auctions_adapter = new AuctionRecyclerViewAdapter(this, cursor);
-        auctions_recyclerview.setAdapter(auctions_adapter);
+        mAdapter = new AuctionRVAdapter(this, cursor);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     public Cursor getAllAuctions() {

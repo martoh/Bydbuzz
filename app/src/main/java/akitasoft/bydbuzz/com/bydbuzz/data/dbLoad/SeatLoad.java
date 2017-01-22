@@ -18,7 +18,10 @@ public class SeatLoad {
     }
 
     public void load() {
-        // TODO: INSERT into table
+        insert(1, "100", "1", "1", "50");
+        insert(1, "200", "1", "2", "60");
+        insert(1, "300", "1", "3", "70");
+        insert(1, "400", "1", "4", "80");
     }
 
     public long insert(Integer venue_id, String section, String row, String number, String price) {

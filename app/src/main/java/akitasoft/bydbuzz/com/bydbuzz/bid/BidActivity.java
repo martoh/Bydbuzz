@@ -15,7 +15,7 @@ public class BidActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bid);
+        setContentView(R.layout.bid_activity);
 
         dbHelper = DbHelper.getsInstance(this);
         sql = dbHelper.sql;

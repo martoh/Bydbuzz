@@ -19,7 +19,7 @@ public class VenueActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_venue);
+        setContentView(R.layout.venue_activity);
 
         dbHelper = DbHelper.getsInstance(this);
         sql = dbHelper.sql;
